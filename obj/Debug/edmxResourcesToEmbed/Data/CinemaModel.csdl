@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CinemaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.FK_Movies_Genre" FromRole="Genre" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Projection" Type="Int32" Nullable="false" />
+    <Property Name="Genre" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Genre1" Relationship="Self.FK_Movies_Genre" FromRole="Movies" ToRole="Genre" />
+    <NavigationProperty Name="Projection1" Relationship="Self.FK_Movies_Projection" FromRole="Movies" ToRole="Projection" />
+  </EntityType>
+  <EntityType Name="Projection">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.FK_Movies_Projection" FromRole="Projection" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role1" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+  </EntityType>
+  <Association Name="FK_Movies_Genre">
+    <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+    <End Role="Movies" Type="CinemaModel.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="Genre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Movies_Projection">
+    <End Role="Projection" Type="Self.Projection" Multiplicity="1" />
+    <End Role="Movies" Type="CinemaModel.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projection">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="Projection" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Genres" EntityType="Self.Genre" />
+    <EntitySet Name="Movies1" EntityType="CinemaModel.Movies" />
+    <EntitySet Name="Projections" EntityType="Self.Projection" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Movies_Genre" Association="Self.FK_Movies_Genre">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="Movies" EntitySet="Movies1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Movies_Projection" Association="Self.FK_Movies_Projection">
+      <End Role="Projection" EntitySet="Projections" />
+      <End Role="Movies" EntitySet="Movies1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
