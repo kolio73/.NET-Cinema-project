@@ -1,9 +1,2 @@
 # .NET-Cinema-project
-Проектът представлява Кино.
-Съдържа опция за вход, регистрация и меню с опции.
-Формата за вход служи за достъп до менюто и неговите опции. Формата за 
-регистрация служи за получаване на достъп след въвеждането на данни за регистрация. Менюто съдържа 4 опции. Първата е преглед
-и цялата информация за всички налични филми. Втората служи за добавяне или редактиране на вида на прожекциите в киното. Третата
-служи за добавяне или редактиране на жанровете в киното. Последната четвърта служи за преглед на всички потребители или 
-редактиране на ролите им.
-
+The project represents Cinema. Contains login option, registration and options menu. The input format serves to access the menu and its options. The registration form serves to gain access after entering the registration details. The menu contains 4 options. The first is an overview and all the information about all available movies. The second serves to add or edit the type of screenings in the cinema. The third serves to add or edit the genres in the cinema. The last fourth serves to view all users or edit their roles.
